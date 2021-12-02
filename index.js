@@ -2,14 +2,18 @@
 // const express = require("express");    ///// type:"common js"
 import express, { request, response } from "express";       /// type:"module"
 const app = express();
+import { ObjectId } from "mongodb";
 import { MongoClient } from 'mongodb';
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();///all data in env are comes under process.env
 console.log(process.env);
 
 
 app.use(express.json());
+
+app.use(cors());
 
 
 
@@ -112,7 +116,7 @@ app.get("/movies/:id",async (request,response)=>{
     const movie= await client
     .db("B28wd")
     .collection("movies")
-    .findOne({id : id});
+    .findOne({_id : ObjectId(id)});
    
     // const movie= movies.filter((mv)=> mv.id==id);
     movie ?  response.send(movie) : response.status(404).send({message:"No matching movies found!!!!!"})
