@@ -11,7 +11,11 @@ import { createMoviesInBody,
      getMoviesById, 
      deleteMoviesByid, 
      updateMovieById } from "./helper.js";
+
 import { moviesRouter } from "./Routes/movies.js";
+import { usersRouter } from "./routes/users.js";
+
+
 
     
 
@@ -29,6 +33,9 @@ app.use(cors());
 
 
 app.use("/movies",moviesRouter);
+
+
+app.use("/users",usersRouter);
 //-----------------------------------------------------------------------------------------------------//
 // const MONGO_URL="mongodb://localhost";
 // mongodb+srv://kavinkumar:<password>@cluster0.wlhui.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
@@ -48,28 +55,6 @@ export const client = await getconnection();
 
 
 //--------------------------------------------------------------------------------------------------//
-
-
-
-/////authentication and authorization....
-async function generatepassword(password){
-     /// salt + hash(password,salt)
-    const NoOfRound= 10;
-
-     const salt= await bcrypt.genSalt(NoOfRound);
-     console.log(salt);
-
-     const hashpassword = await bcrypt.hash(password,salt);
-     console.log(hashpassword);
-
-}
-generatepassword("password@123"); 
-
-
-
-
-
-//--------------------------------------------------------------------------------------------------//
 //// response to server....
 // const PORT = 8000;
 const PORT=process.env.PORT;
@@ -83,6 +68,6 @@ app.get("/",(request,response)=>{
 //PORT attached to App....
 app.listen(PORT , ()=>{
     console.log("App get started!!!!!")
-}); 
+});
 
 //-------------------------------------------------------------------------------------------------//

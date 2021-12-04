@@ -1,11 +1,16 @@
 import express from "express";
 const router = express.Router();
+import { createMoviesInBody,
+    getMoviesByFilter, 
+    getMoviesById, 
+    deleteMoviesByid, 
+    updateMovieById } from "../helper.js";
 
 ///movies...
 
 // const movies=[];
 
-router.post("/movies",async(request,response)=>{
+router.route("/").post(async(request,response)=>{
 
     const data = request.body;
     // console.log(data);
@@ -17,7 +22,7 @@ router.post("/movies",async(request,response)=>{
 
 /// query parameter.....
 
-router.get("/movies",async(request,response)=>{
+router.route("/").get(async(request,response)=>{
 
     console.log(request.query);
 
@@ -53,7 +58,7 @@ response.send(filtermovie);
 });
 
 /// response to server /movies path/id---params.....
-router.get("/movies/:id",async (request,response)=>{
+router.route("/:id").get(async (request,response)=>{
     console.log(request.params)
     const {id}=request.params 
 
@@ -65,7 +70,7 @@ router.get("/movies/:id",async (request,response)=>{
 });
 
 /// delete method....
-router.delete("/movies/:id",async(request,response)=>{
+router.route("/:id").delete(async(request,response)=>{
 
 const {id}=request.params;
 console.log(id);
@@ -79,7 +84,7 @@ result.deletecount>0
 
 //// put method....edit & update...
 
-router.put("/movies/:id",async(request,response)=>{
+router.route("/:id").put(async(request,response)=>{
 
     const {id}=request.params;
     console.log(id);
